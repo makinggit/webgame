@@ -1,0 +1,475 @@
+:root {
+	--blue: #2379bd;
+	--ink: #173b59;
+}
+* {
+	box-sizing: border-box;
+}
+html,
+body {
+	margin: 0;
+	min-height: 100%;
+	font-family: "Arial Rounded MT Bold", "Noto Sans TC", sans-serif;
+	color: var(--ink);
+}
+body {
+	background: linear-gradient(#8fddff 0 28%, #72c96b 28%);
+}
+.wrap {
+	width: min(100% - 24px, 760px);
+	margin: auto;
+	padding: 14px 0 24px;
+}
+header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 10px;
+	flex-wrap: wrap;
+}
+h1 {
+	margin: 0;
+	color: #fff;
+	text-shadow: 3px 3px #2872a0;
+	font-size: clamp(25px, 6vw, 42px);
+}
+.stats {
+	display: flex;
+	gap: 6px;
+	flex-wrap: wrap;
+}
+.pill,
+.panel {
+	background: #fff;
+	border: 3px solid var(--blue);
+	border-radius: 16px;
+	padding: 7px 10px;
+	font-weight: bold;
+}
+.levelButton {
+	cursor: pointer;
+}
+.question {
+	margin: 12px auto 8px;
+	text-align: center;
+	background: #fff;
+	border: 4px solid var(--blue);
+	border-radius: 18px;
+	padding: 10px;
+	font-size: clamp(19px, 4vw, 25px);
+	font-weight: bold;
+}
+.game {
+	position: relative;
+	width: 100%;
+	height: min(690px, calc(100vh - 235px));
+	min-height: 530px;
+	overflow: hidden;
+	border: 7px solid #fff;
+	border-radius: 25px;
+	background: #6dc766;
+	box-shadow: 0 7px #33854a;
+}
+.road {
+	position: absolute;
+	inset: 0 10%;
+	background: #444;
+	border-left: 9px dashed #eee;
+	border-right: 9px dashed #eee;
+	overflow: hidden;
+	transition: background 0.5s;
+}
+.road:before {
+	content: "";
+	position: absolute;
+	inset: 0;
+	background: repeating-linear-gradient(
+		to bottom,
+		transparent 0 68px,
+		rgba(255, 255, 255, 0.55) 68px 77px,
+		transparent 77px 145px
+	);
+	animation: roadMove var(--road-speed, 1.3s) linear infinite;
+}
+@keyframes roadMove {
+	to {
+		transform: translateY(145px);
+	}
+}
+.road.dirt {
+	background: #a96f3d;
+	border-color: #f2ca75;
+}
+.road.ice {
+	background: #69b9d6;
+	border-color: #e7fbff;
+}
+.road.neon {
+	background: #272452;
+	border-color: #ff73d1;
+}
+.road.grass {
+	background: #3c9d51;
+	border-color: #d9f56a;
+}
+.road.dirt:before {
+	background: repeating-linear-gradient(
+		to bottom,
+		transparent 0 78px,
+		rgba(75, 42, 20, 0.5) 78px 86px,
+		transparent 86px 155px
+	);
+}
+.road.ice:before {
+	background: repeating-linear-gradient(
+		130deg,
+		transparent 0 85px,
+		rgba(255, 255, 255, 0.8) 85px 92px,
+		transparent 92px 165px
+	);
+}
+.road.neon:before {
+	background: repeating-linear-gradient(
+		to bottom,
+		transparent 0 58px,
+		#6cf7ff 58px 66px,
+		transparent 66px 128px
+	);
+	filter: drop-shadow(0 0 8px #6cf7ff);
+}
+.road.grass:before {
+	background: repeating-linear-gradient(
+		to bottom,
+		transparent 0 95px,
+		#d9f56a 95px 103px,
+		transparent 103px 190px
+	);
+}
+.word {
+	position: absolute;
+	transform: translateX(-50%);
+	min-width: 100px;
+	text-align: center;
+	background: #fff;
+	border: 4px solid #f5b400;
+	border-radius: 18px;
+	padding: 8px 11px;
+	font-size: clamp(25px, 6vw, 37px);
+	font-weight: bold;
+	color: #d43b48;
+	z-index: 3;
+	box-shadow: 0 5px #b78100;
+	white-space: nowrap;
+}
+.word.hint {
+	animation: pulse 0.7s infinite alternate;
+}
+@keyframes pulse {
+	to {
+		transform: translateX(-50%) scale(1.13);
+		background: #fff5a4;
+	}
+}
+.word.correct {
+	border-color: #27b85a;
+	background: #d9ffdf;
+}
+.word.wrong {
+	border-color: #e54646;
+	background: #ffe0e0;
+}
+.car {
+	position: absolute;
+	bottom: 24px;
+	transform: translateX(-50%);
+	width: 88px;
+	height: 122px;
+	z-index: 4;
+	transition: left 0.18s ease;
+}
+.body {
+	position: absolute;
+	inset: 18px 4px 10px;
+	background: #ef4054;
+	border: 4px solid #a51f35;
+	border-radius: 25px 25px 15px 15px;
+}
+.window {
+	position: absolute;
+	top: 25px;
+	left: 22px;
+	width: 44px;
+	height: 32px;
+	background: #9ce7ff;
+	border: 4px solid #a51f35;
+	border-radius: 11px 11px 5px 5px;
+}
+.wheel {
+	position: absolute;
+	top: 42px;
+	width: 18px;
+	height: 34px;
+	background: #222;
+	border-radius: 10px;
+	z-index: -1;
+}
+.wheel.l {
+	left: -5px;
+}
+.wheel.r {
+	right: -5px;
+}
+.flame {
+	position: absolute;
+	bottom: -10px;
+	left: 33px;
+	width: 23px;
+	height: 28px;
+	background: #ffb21e;
+	border-radius: 50%;
+	animation: flame 0.16s infinite alternate;
+}
+.fast .flame {
+	height: 45px;
+	background: #ff3d22;
+}
+@keyframes flame {
+	to {
+		height: 36px;
+		background: #ff6b22;
+	}
+}
+.starRack {
+	position: absolute;
+	top: 8px;
+	left: 50%;
+	transform: translateX(-50%);
+	min-height: 46px;
+	display: flex;
+	gap: 4px;
+	align-items: center;
+	z-index: 7;
+	background: #ffffffaa;
+	border-radius: 18px;
+	padding: 4px 8px;
+}
+.star {
+	font-size: 31px;
+	display: inline-block;
+}
+.star.new {
+	animation: starFly 0.9s ease;
+}
+@keyframes starFly {
+	0% {
+		transform: translateY(80px) scale(0.2);
+		opacity: 0;
+	}
+	55% {
+		transform: translateY(-7px) scale(1.35);
+		opacity: 1;
+	}
+	100% {
+		transform: translateY(0) scale(1);
+	}
+}
+.speedBar {
+	position: absolute;
+	left: 50%;
+	bottom: 10px;
+	transform: translateX(-50%);
+	height: 13px;
+	width: 54%;
+	background: #172a3d;
+	border-radius: 9px;
+	border: 2px solid #fff;
+	z-index: 12;
+}
+.speedFill {
+	height: 100%;
+	width: 0;
+	background: linear-gradient(90deg, #38d66b, #ffd34d, #ff542f);
+	border-radius: 7px;
+	transition: width 0.12s;
+}
+.flash {
+	position: absolute;
+	inset: 0;
+	display: grid;
+	place-items: center;
+	font-size: clamp(40px, 10vw, 65px);
+	font-weight: bold;
+	color: #fff;
+	text-shadow: 3px 3px #a51f35;
+	opacity: 0;
+	z-index: 8;
+	pointer-events: none;
+}
+.flash.show {
+	animation: pop 0.75s ease;
+}
+@keyframes pop {
+	0% {
+		opacity: 0;
+		transform: scale(0.7);
+	}
+	35% {
+		opacity: 1;
+		transform: scale(1.2);
+	}
+	100% {
+		opacity: 0;
+		transform: scale(1);
+	}
+}
+.sideControls {
+	position: absolute;
+	inset: 0;
+	z-index: 10;
+	pointer-events: none;
+}
+.sideButton {
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	width: 62px;
+	height: 96px;
+	border: 0;
+	border-radius: 18px;
+	color: #fff;
+	font-size: 29px;
+	font-weight: bold;
+	cursor: pointer;
+	pointer-events: auto;
+	touch-action: manipulation;
+	opacity: 0.92;
+	box-shadow: 0 5px #18528d;
+}
+.sideButton:active {
+	transform: translateY(calc(-50% + 4px));
+	box-shadow: 0 1px #18528d;
+}
+.sideButton.left {
+	left: 10px;
+	background: #ee8825;
+	box-shadow: 0 5px #9c5108;
+}
+.sideButton.right {
+	right: 10px;
+	background: #2fa45c;
+	box-shadow: 0 5px #1c6c3c;
+}
+.below {
+	display: flex;
+	gap: 8px;
+	justify-content: center;
+	flex-wrap: wrap;
+	margin-top: 10px;
+}
+.panel {
+	text-align: center;
+	font-size: 16px;
+	min-width: 235px;
+}
+.panel button,
+.menu button {
+	border: 0;
+	border-radius: 12px;
+	padding: 8px 12px;
+	color: #fff;
+	background: #f19a24;
+	font-weight: bold;
+	cursor: pointer;
+}
+.help {
+	text-align: center;
+	font-size: 15px;
+	margin: 9px;
+}
+.modal {
+	position: fixed;
+	inset: 0;
+	background: #0008;
+	display: none;
+	place-items: center;
+	padding: 18px;
+	z-index: 20;
+}
+.modal.show {
+	display: grid;
+}
+.box {
+	max-width: 460px;
+	background: #fff;
+	border: 5px solid var(--blue);
+	border-radius: 22px;
+	padding: 22px;
+	text-align: center;
+}
+.box h2 {
+	margin: 0 0 10px;
+}
+.box button {
+	margin-top: 10px;
+	background: #287ed0;
+	border: 0;
+	border-radius: 12px;
+	padding: 11px 17px;
+	color: #fff;
+	font-weight: bold;
+	font-size: 17px;
+}
+.menu {
+	position: fixed;
+	top: 68px;
+	right: 16px;
+	display: none;
+	z-index: 30;
+	background: #fff;
+	border: 4px solid var(--blue);
+	border-radius: 16px;
+	padding: 12px;
+	box-shadow: 0 5px 15px #0004;
+}
+.menu.show {
+	display: block;
+}
+.menu button {
+	display: block;
+	width: 100%;
+	margin: 5px 0;
+	font-size: 16px;
+	background: #287ed0;
+}
+.motionStatus {
+	font-size: 14px;
+	margin-top: 8px;
+	color: #2672a5;
+}
+@media (orientation: portrait) and (min-width: 600px) {
+	.wrap {
+		width: min(100% - 32px, 760px);
+	}
+	.game {
+		height: 720px;
+	}
+	.road {
+		inset: 0 12%;
+	}
+	.car {
+		bottom: 30px;
+	}
+}
+@media (max-width: 480px) {
+	.sideButton {
+		width: 52px;
+		height: 82px;
+		font-size: 24px;
+	}
+	.sideButton.left {
+		left: 6px;
+	}
+	.sideButton.right {
+		right: 6px;
+	}
+}

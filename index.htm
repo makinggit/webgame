@@ -1,0 +1,84 @@
+﻿<!doctype html>
+<html lang="zh-Hant">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+	<title>小小郵差中文字車手｜清晰音效版</title>
+	<link rel="stylesheet" href="./assets/styles.css">
+</head>
+<body>
+
+<div class="wrap">
+	<header>
+		<h1>📮 小小郵差中文字車手</h1>
+		<div class="stats">
+			<div class="pill">⭐ <span id="score">0</span></div>
+			<div class="pill">🪙 <span id="coins">0</span></div>
+			<div class="pill">❤️ <span id="lives">10</span></div>
+			<button class="pill levelButton" id="levelButton">關卡 <span id="level">1</span> ▾</button>
+		</div>
+	</header>
+	<div class="question" id="question">任務：讓車子撞上「每天」！</div>
+	<div class="game" id="game">
+		<div class="road" id="road"></div>
+		<div class="starRack" id="starRack"></div>
+		<div class="word" data-index="0"></div>
+		<div class="word" data-index="1"></div>
+		<div class="word" data-index="2"></div>
+		<div class="car" id="car">
+			<div class="flame"></div>
+			<div class="wheel l"></div>
+			<div class="wheel r"></div>
+			<div class="body"></div>
+			<div class="window"></div>
+		</div>
+		<div class="speedBar"><div class="speedFill" id="speedFill"></div></div>
+		<div class="sideControls">
+			<button class="sideButton left" id="left">◀</button
+			><button class="sideButton right" id="right">▶</button
+			><button
+				class="sideButton"
+				id="boost"
+				style="
+					left: 50%;
+					top: auto;
+					bottom: 30px;
+					transform: translateX(-50%);
+					width: 78px;
+					height: 58px;
+					background: #e33b39;
+					box-shadow: 0 5px #8e2020;
+				"
+			>
+				⬆️
+			</button>
+		</div>
+		<div class="flash" id="flash"></div>
+	</div>
+	<div class="below">
+		<div class="panel">🏆 連續答對：<span id="combo">0</span>　最佳：<span id="best">0</span></div>
+		<div class="panel">
+			🌈 路面：<button id="roadBtn">更換路面</button>
+			<div id="motionStatus" class="motionStatus">Motion Control：未啟用</div>
+		</div>
+		<div class="panel">🎨 車庫：<button id="garage">更換車色</button></div>
+	</div>
+	<p class="help">你是小郵差！把正確中文字信件送到學校。</p>
+</div>
+<div class="menu" id="menu"><button id="restartMenu">重新開始</button></div>
+<div class="modal" id="modal">
+	<div class="box">
+		<h2 id="modalTitle">🎉 完成任務！</h2>
+		<p id="result"></p>
+		<button id="close">繼續挑戰</button>
+	</div>
+</div>
+
+<script src="./assets/common.js"></script>
+<script>
+setup();
+moveWords();
+setTimeout(introduction, 350);
+</script>
+</body>
+</html>
